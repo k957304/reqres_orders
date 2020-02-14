@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 @Service
-@FeignClient(name ="delivery", url="http://localhost:8082")
+@FeignClient(name ="delivery", url="${api.url.delivery}")
 public interface DeliveryService {
 
     @RequestMapping(method = RequestMethod.POST, value = "/deliveries", consumes = "application/json")

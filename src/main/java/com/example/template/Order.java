@@ -72,21 +72,21 @@ public class Order {
         delivery.setQuantity(this.getQuantity());
 
         // 배송 서비스에 배송 시작 API 요청
-        // 1. rest call
-        RestTemplate restTemplate = Application.applicationContext.getBean(RestTemplate.class);
-        Environment env = Application.applicationContext.getEnvironment();
-        String deliveryUrl = env.getProperty("api.url.delivery") + "/deliveries";
-        try {
-            ResponseEntity<String> responseEntity = restTemplate.postForEntity(deliveryUrl, delivery, String.class);
-            String response = responseEntity.getBody();
-        } catch (Exception ex) {
-            // 배송 실패시 주문 삭제
-        }
+//        // 1. rest call
+//        RestTemplate restTemplate = Application.applicationContext.getBean(RestTemplate.class);
+//        Environment env = Application.applicationContext.getEnvironment();
+//        String deliveryUrl = env.getProperty("api.url.delivery") + "/deliveries";
+//        try {
+//            ResponseEntity<String> responseEntity = restTemplate.postForEntity(deliveryUrl, delivery, String.class);
+//            String response = responseEntity.getBody();
+//        } catch (Exception ex) {
+//            // 배송 실패시 주문 삭제
+//        }
 
         // 2. feign client call - 기존 monolith 의 수정이 없다.
         // 배송 시작
-//        DeliveryService deliveryService = Application.applicationContext.getBean(DeliveryService.class);
-//        deliveryService.startDelivery(delivery);
+        DeliveryService deliveryService = Application.applicationContext.getBean(DeliveryService.class);
+        deliveryService.startDelivery(delivery);
 
     }
 
