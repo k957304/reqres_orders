@@ -105,7 +105,7 @@ public class Order {
             // 배송 취소
             DeliveryService deliveryService = Application.applicationContext.getBean(DeliveryService.class);
             delivery.setDeliveryState(DeliveryStatus.DeliveryCancelled.name());
-            deliveryService.cancelDelivery(delivery.getDeliveryId(), delivery);
+            deliveryService.updateDelivery(delivery.getDeliveryId(), delivery);
         }
     }
 
