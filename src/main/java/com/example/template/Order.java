@@ -59,7 +59,6 @@ public class Order {
      * 주문이 들어옴
      */
     @PostPersist
-    @ExceptionHandler(OrderException.class)
     private void callDeliveryStart(){
 
         Delivery delivery = new Delivery();
@@ -87,14 +86,13 @@ public class Order {
         // 배송 시작
         DeliveryService deliveryService = Application.applicationContext.getBean(DeliveryService.class);
         deliveryService.startDelivery(delivery);
-
     }
 
     /**
      * 주문이 취소됨
      */
     @PreUpdate
-    private void beforeCancelOrder(){
+    private void callDeliveryStop(){
         if( "OrderCancelled".equals(this.getState())){
             // 배송 ID 조회
             RestTemplate restTemplate = Application.applicationContext.getBean(RestTemplate.class);
